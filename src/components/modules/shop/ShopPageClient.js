@@ -1,230 +1,17 @@
 "use client";
 
-import { useRouter, useSearchParams } from "next/navigation";
-import { useEffect, useState } from "react";
+import ColumnCart from "@/components/productsCart/ColumnCart";
 import {
   Accordion,
   AccordionContent,
   AccordionItem,
   AccordionTrigger,
 } from "@/components/ui/accordion";
-import ColumnCart from "@/components/productsCart/ColumnCart";
+import { useRouter, useSearchParams } from "next/navigation";
+import { useEffect, useState } from "react";
 
 // Sample product data (unchanged)
-const products = [
-  {
-    id: 1,
-    image: "/images/products/games/0.png",
-    title: "AWIGNA by Warsha & Rittu",
-    price: 471,
-    discount: 0,
-    rating: 5,
-    url: "awigna-by-warsha-ritt",
-    brand: "GlamGlow",
-    color: ["Red"],
-    size: ["M", "L", "XL"],
-    stock: 14,
-    category: "Watch",
-  },
-  {
-    id: 2,
-    image: "/images/products/games/1.png",
-    title: "Golden Glam Lehenga",
-    price: 432,
-    discount: 0,
-    rating: 4.9,
-    url: "golden-glam-lehenga",
-    brand: "GlamGlow",
-    color: ["white"],
-    size: ["S", "M", "L"],
-    stock: 8,
-    hot: true,
-    category: "Watch",
-  },
-  {
-    id: 3,
-    image: "/images/products/games/2.png",
-    title: "Royal Red Bridal Set",
-    price: 468,
-    discount: 10,
-    rating: 4.8,
-    url: "royal-red-bridal-set",
-    brand: "AWIGNA",
-    color: ["Red", "Navy Blue"],
-    size: ["M", "L"],
-    stock: 0,
-    category: "Games",
-  },
-  {
-    id: 4,
-    image: "/images/products/games/3.png",
-    title: "Peach Elegance Embroidery",
-    price: 414,
-    discount: 10,
-    rating: 4.7,
-    url: "peach-elegance-embroidery",
-    brand: "IvoryCharm",
-    color: ["Navy Blue", "Silver"],
-    size: ["S", "M", "L", "XL"],
-    stock: 5,
-    hot: true,
-    category: "Games",
-  },
-  {
-    id: 5,
-    image: "/images/products/games/4.png",
-    title: "Maroon Net Games",
-    price: 468,
-    discount: 10,
-    rating: 4.9,
-    url: "maroon-net-bridal-wear",
-    brand: "AWIGNA",
-    color: ["Navy Blue"],
-    size: ["M", "L"],
-    stock: 12,
-    category: "Games",
-  },
-  {
-    id: 6,
-    image: "/images/products/games/5.png",
-    title: "Ivory Dream Lehenga",
-    price: 441,
-    discount: 10,
-    rating: 4.8,
-    url: "ivory-dream-lehenga",
-    brand: "IvoryCharm",
-    color: ["Silver"],
-    size: ["S", "M", "L"],
-    stock: 10,
-    category: "Games",
-  },
-  {
-    id: 7,
-    image: "/images/products/games/6.png",
-    title: "Navy Blue Watch",
-    price: 495,
-    discount: 10,
-    rating: 4.7,
-    url: "navy-blue-mirror-work",
-    brand: "IvoryCharm",
-    color: ["Navy Blue"],
-    size: ["M", "L", "XL"],
-    stock: 6,
-    category: "Watch",
-  },
-  {
-    id: 8,
-    image: "/images/products/games/7.png",
-    title: "Silver Zari Embroidered Set",
-    price: 427,
-    discount: 10,
-    rating: 4.6,
-    url: "silver-zari-embroidered-set",
-    brand: "ZariLux",
-    color: ["Red", "Silver"],
-    size: ["S", "M", "L"],
-    stock: 11,
-    category: "Games",
-  },
-  {
-    id: 9,
-    image: "/images/products/games/8.png",
-    title: "Mustard Silk Festive Wear",
-    price: 396,
-    discount: 10,
-    rating: 4.5,
-    url: "mustard-silk-festive-wear",
-    brand: "IvoryCharm",
-    color: ["white"],
-    size: ["M", "L"],
-    stock: 7,
-    category: "Watch",
-  },
-  {
-    id: 10,
-    image: "/images/products/games/9.png",
-    title: "Emerald Green Luxury Look",
-    price: 477,
-    discount: 10,
-    rating: 4.9,
-    url: "emerald-green-luxury-look",
-    brand: "ZariLux",
-    color: ["Red"],
-    size: ["M", "L", "XL"],
-    stock: 13,
-    category: "Watch",
-  },
-  {
-    id: 11,
-    image: "/images/products/games/10.png",
-    title: "Velvet Red Wedding Wear",
-    price: 540,
-    discount: 10,
-    rating: 4.8,
-    url: "velvet-red-wedding-wear",
-    brand: "IvoryCharm",
-    color: ["black"],
-    size: ["L", "XL"],
-    stock: 4,
-    category: "Watch",
-  },
-  {
-    id: 12,
-    image: "/images/products/games/11.png",
-    title: "Pastel Peach Bridal Set",
-    price: 405,
-    discount: 10,
-    rating: 4.7,
-    url: "pastel-peach-bridal-set",
-    brand: "ZariLux",
-    color: ["Black"],
-    size: ["S", "M", "L"],
-    stock: 9,
-    category: "Games",
-  },
-  {
-    id: 13,
-    image: "/images/products/games/1.png",
-    title: "Champagne Designer Lehenga",
-    price: 459,
-    discount: 10,
-    rating: 4.6,
-    url: "champagne-designer-lehenga",
-    brand: "ChampagneCharm",
-    color: ["White"],
-    size: ["M", "L", "XL"],
-    stock: 10,
-    category: "Watch",
-  },
-  {
-    id: 14,
-    image: "/images/products/games/13.png",
-    title: "Satin Rose Embroidered Dress",
-    price: 477,
-    discount: 10,
-    rating: 4.9,
-    url: "satin-rose-embroidered-dress",
-    brand: "ChampagneCharm",
-    color: ["Red", "Pink"],
-    size: ["S", "M"],
-    stock: 6,
-    category: "Games",
-  },
-  {
-    id: 15,
-    image: "/images/products/games/14.png",
-    title: "Designer Net Bridal Lehenga",
-    price: 495,
-    discount: 10,
-    rating: 5.0,
-    url: "designer-net-bridal-lehenga",
-    brand: "ChampagneCharm",
-    color: ["White", "Silver"],
-    size: ["M", "L", "XL"],
-    stock: 7,
-    category: "Games",
-  },
-];
+import { ProductsData } from "@/data/ProductsData";
 
 export default function ShopPageClient() {
   const router = useRouter();
@@ -236,8 +23,8 @@ export default function ShopPageClient() {
   const [selectedColors, setSelectedColors] = useState([]);
   const [selectedSizes, setSelectedSizes] = useState([]);
   const [selectedAvailability, setSelectedAvailability] = useState([]);
-  const minPrice = Math.min(...products.map((p) => p.price));
-  const maxPrice = Math.max(...products.map((p) => p.price));
+  const minPrice = Math.min(...ProductsData.map((p) => p.price));
+  const maxPrice = Math.max(...ProductsData.map((p) => p.price));
   const [priceRange, setPriceRange] = useState([minPrice, maxPrice]);
   const [currentPage, setCurrentPage] = useState(1);
   const [productsPerPage, setProductsPerPage] = useState(12); // Dynamic products per page
@@ -247,15 +34,19 @@ export default function ShopPageClient() {
   const productsPerPageOptions = [12, 18, 20, 25];
 
   // Pagination settings
-  const totalPages = Math.ceil(products.length / productsPerPage);
+  const totalPages = Math.ceil(ProductsData.length / productsPerPage);
 
   // Dynamically extract filter options from products
   const categories = [
-    ...new Set(products.map((p) => p.category).filter(Boolean)),
+    ...new Set(ProductsData.map((p) => p.category).filter(Boolean)),
   ];
-  const brands = [...new Set(products.map((p) => p.brand).filter(Boolean))];
-  const colors = [...new Set(products.flatMap((p) => p.color).filter(Boolean))];
-  const sizes = [...new Set(products.flatMap((p) => p.size).filter(Boolean))];
+  const brands = [...new Set(ProductsData.map((p) => p.brand).filter(Boolean))];
+  const colors = [
+    ...new Set(ProductsData.flatMap((p) => p.color).filter(Boolean)),
+  ];
+  const sizes = [
+    ...new Set(ProductsData.flatMap((p) => p.size).filter(Boolean)),
+  ];
   const availabilityOptions = ["In Stock", "Low Stock", "Out of Stock"];
 
   // Function to determine availability status based on stock
@@ -380,45 +171,43 @@ export default function ShopPageClient() {
   };
 
   // Filter and sort products
-  const filteredProducts = products
-    .filter((product) => {
-      const categoryMatch =
-        selectedCategories.length === 0 ||
-        selectedCategories.includes(product.category);
-      const brandMatch =
-        selectedBrands.length === 0 ||
-        !product.brand ||
-        selectedBrands.includes(product.brand);
-      const colorMatch =
-        selectedColors.length === 0 ||
-        !product.color ||
-        product.color.some((c) => selectedColors.includes(c));
-      const sizeMatch =
-        selectedSizes.length === 0 ||
-        !product.size ||
-        product.size.some((s) => selectedSizes.includes(s));
-      const priceMatch =
-        product.price >= priceRange[0] && product.price <= priceRange[1];
-      const availabilityMatch =
-        selectedAvailability.length === 0 ||
-        selectedAvailability.includes(getAvailabilityStatus(product.stock));
-      return (
-        categoryMatch &&
-        brandMatch &&
-        colorMatch &&
-        sizeMatch &&
-        priceMatch &&
-        availabilityMatch
-      );
-    })
-    .sort((a, b) => {
-      if (sortBy === "high-to-low") {
-        return b.price - a.price;
-      } else if (sortBy === "low-to-high") {
-        return a.price - b.price;
-      }
-      return 0; // Default: no sorting
-    });
+  const filteredProducts = ProductsData.filter((product) => {
+    const categoryMatch =
+      selectedCategories.length === 0 ||
+      selectedCategories.includes(product.category);
+    const brandMatch =
+      selectedBrands.length === 0 ||
+      !product.brand ||
+      selectedBrands.includes(product.brand);
+    const colorMatch =
+      selectedColors.length === 0 ||
+      !product.color ||
+      product.color.some((c) => selectedColors.includes(c));
+    const sizeMatch =
+      selectedSizes.length === 0 ||
+      !product.size ||
+      product.size.some((s) => selectedSizes.includes(s));
+    const priceMatch =
+      product.price >= priceRange[0] && product.price <= priceRange[1];
+    const availabilityMatch =
+      selectedAvailability.length === 0 ||
+      selectedAvailability.includes(getAvailabilityStatus(product.stock));
+    return (
+      categoryMatch &&
+      brandMatch &&
+      colorMatch &&
+      sizeMatch &&
+      priceMatch &&
+      availabilityMatch
+    );
+  }).sort((a, b) => {
+    if (sortBy === "high-to-low") {
+      return b.price - a.price;
+    } else if (sortBy === "low-to-high") {
+      return a.price - b.price;
+    }
+    return 0; // Default: no sorting
+  });
 
   // Paginate filtered products
   const paginatedProducts = filteredProducts.slice(
@@ -472,7 +261,7 @@ export default function ShopPageClient() {
                 style={{ zIndex: 2 }}
               />
             </div>
-            {products.some((p) => p.price) && (
+            {ProductsData.some((p) => p.price) && (
               <div className="flex items-center gap-2">
                 <input
                   type="text"
@@ -502,7 +291,7 @@ export default function ShopPageClient() {
           className="w-full space-y-2"
         >
           {/* Availability Filter */}
-          {products.some((p) => p.stock !== undefined) && (
+          {ProductsData.some((p) => p.stock !== undefined) && (
             <AccordionItem value="availability" className="border rounded-md">
               <AccordionTrigger className="text-[#000] font-semibold p-3 [&[data-state=open]]:border-b">
                 AVAILABILITY

@@ -1,50 +1,25 @@
 import ProductDetails from "@/components/modules/productSinglePage/ProductDetails";
 import ProductImages from "@/components/modules/productSinglePage/ProductImages";
+import ProductInfo from "@/components/modules/productSinglePage/ProductInfo";
 
-const mockProductData = {
-  id: 1,
-  name: "Sample Games",
-  retail_price: 1000,
-  discount: 20,
-  thumbnail: "/images/products/games/0.png",
-  category: { name: "Games" },
-  brand: { name: "Sample Brand" },
-  sku: "TSHIRT123",
-  Review: [{}, {}, {}],
-  variations: [
-    {
-      id: 1,
-      color: "Red",
-      size: "M",
-      stock: 10,
-      img: "/images/products/games/0.png",
-    },
-    {
-      id: 2,
-      color: "Red",
-      size: "L",
-      stock: 5,
-      img: "/images/products/games/1.png",
-    },
-    {
-      id: 3,
-      color: "Red",
-      size: "L",
-      stock: 0,
-      img: "/images/products/games/2.png",
-    },
-  ],
-};
+import { ProductsData } from "@/data/ProductsData";
 
-export default function Product() {
+export default function Product({ params }) {
+  const filterSingleProduct = ProductsData.find(
+    (product) => product?.id === Number(params.slug)
+  );
+
   return (
-    <section className="container mx-auto px-4 grid grid-cols-12 gap-5">
-      <div className="col-span-12 md:col-span-5">
-        <ProductImages data={mockProductData.variations} />
-      </div>
-      <div className="col-span-12 md:col-span-7">
-        <ProductDetails productDetails={mockProductData} />
-      </div>
+    <section className="container mx-auto px-4">
+      <section className="grid grid-cols-12 gap-5">
+        <div className="col-span-12 md:col-span-5">
+          <ProductImages variations={filterSingleProduct?.variations} />
+        </div>
+        <div className="col-span-12 md:col-span-7">
+          <ProductDetails productDetail={filterSingleProduct} />
+        </div>
+      </section>
+      <ProductInfo productDetail={filterSingleProduct} />
     </section>
   );
 }

@@ -1,3 +1,5 @@
+import Link from "next/link";
+
 const centerNavigationBarRightSiteData = [
   {
     id: 1,
@@ -19,7 +21,7 @@ const centerNavigationBarRightSiteData = [
     ),
     text: "Offers",
     subTitle: "Latest Offers",
-    url: "#",
+    url: "/offers",
   },
   {
     id: 2,
@@ -41,7 +43,7 @@ const centerNavigationBarRightSiteData = [
     ),
     text: "Account",
     subTitle: "Register or Login",
-    url: "",
+    url: "/auth",
   },
   {
     id: 3,
@@ -63,7 +65,7 @@ const centerNavigationBarRightSiteData = [
     ),
     text: "Cart",
     subTitle: "Your Cart",
-    url: "",
+    url: "/checkout/cart",
   },
 ];
 
@@ -71,13 +73,17 @@ function CenterNavigationBarRightSite() {
   return (
     <div className="flex items-center gap-6">
       {centerNavigationBarRightSiteData.map((item) => (
-        <div key={item?.id} className="flex items-center gap-2">
+        <Link
+          href={item?.url}
+          key={item?.id}
+          className="flex items-center gap-2"
+        >
           {item?.icon}
           <p className="flex flex-col">
             <span className="text-sm font-medium">{item?.text}</span>
             <span className="text-xs text-gray-500">{item?.subTitle}</span>
           </p>
-        </div>
+        </Link>
       ))}
     </div>
   );

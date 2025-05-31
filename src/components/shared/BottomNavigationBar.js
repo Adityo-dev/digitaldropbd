@@ -1,8 +1,8 @@
 import Link from "next/link";
 
 export const navItems = [
-  { id: 1, name: "Desktop", url: "shop" },
-  { id: 2, name: "Laptop", url: "shop" },
+  { id: 1, name: "home", url: "/" },
+  { id: 2, name: "shop", url: "shop" },
   { id: 3, name: "Component", url: "shop" },
   { id: 4, name: "Monitor", url: "shop" },
   { id: 5, name: "UPS", url: "shop" },
