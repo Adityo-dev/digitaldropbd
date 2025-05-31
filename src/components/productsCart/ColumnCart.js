@@ -18,7 +18,7 @@ const ColumnCart = ({ cartData }) => {
   return (
     <main className="relative w-full max-h-[350px] h-full flex flex-col justify-between bg-[#f4f4f4] p-[10px_20px_20px_20px] rounded-[10px] group hover:[&_.cartButton]:opacity-100 hover:[&_.cartButton]:transform-none">
       <div>
-        <Link href="#">
+        <Link href={`/product/${cartData?.title}`}>
           <div className="w-full max-w-[230px] h-[220px] relative">
             <Image
               className={`w-full h-full object-cover ${

@@ -19,7 +19,7 @@ const RowCart = ({ cartData }) => {
   return (
     <div className="overflow-hidden relative flex gap-2 items-center bg-[#f4f4f4] rounded-[10px]  cursor-pointer p-1.5">
       <div className="relative">
-        <Link href={`/shop/${cartData?.title}`}>
+        <Link href={`/product/${cartData?.title}`}>
           <Image
             className={`relative max-w-[200px] h-[200px] object-cover ${
               soldOut ? "opacity-30" : ""

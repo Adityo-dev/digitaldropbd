@@ -1,7 +1,7 @@
 import Image from "next/image";
 
 const Banner1 = () => (
-  <div className="bg-[#EEE0E0] rounded-lg overflow-hidden h-[500px]">
+  <div className="bg-[#EEE0E0] rounded-lg overflow-hidden h-[500px] border">
     <Image
       src="/banner1.png"
       alt="Hero Image"
@@ -13,7 +13,7 @@ const Banner1 = () => (
 );
 
 const Banner2 = () => (
-  <div className="bg-[#D8D9EB] rounded-lg overflow-hidden h-[500px]">
+  <div className="bg-[#D8D9EB] rounded-lg overflow-hidden h-[500px] border">
     <Image
       src="/banner2.jpg"
       alt="Hero Image"
