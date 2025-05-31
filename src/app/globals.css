@@ -43,31 +43,6 @@
   --radius-xl: calc(var(--radius) + 4px);
 }
 
-/* রেঞ্জ স্লাইডার কাস্টমাইজেশন */
-input[type="range"]::-webkit-slider-thumb {
-  -webkit-appearance: none;
-  appearance: none;
-  width: 20px;
-  height: 20px;
-  background: #0068c8;
-  border-radius: 50%;
-  cursor: pointer;
-  border: 2px solid white;
-}
-
-input[type="range"]::-moz-range-thumb {
-  width: 20px;
-  height: 20px;
-  background: #0068c8;
-  border-radius: 50%;
-  cursor: pointer;
-  border: 2px solid white;
-}
-
-input[type="range"] {
-  pointer-events: none;
-}
-
 :root {
   --radius: 0.625rem;
   --background: oklch(1 0 0);
@@ -143,5 +118,101 @@ input[type="range"] {
   }
   body {
     @apply bg-background text-foreground;
+  }
+}
+
+/*  */
+input[type="range"]::-webkit-slider-thumb {
+  -webkit-appearance: none;
+  appearance: none;
+  width: 20px;
+  height: 20px;
+  background: #0068c8;
+  border-radius: 50%;
+  cursor: pointer;
+  border: 2px solid white;
+  pointer-events: auto;
+}
+
+input[type="range"]::-moz-range-thumb {
+  width: 20px;
+  height: 20px;
+  background: #0068c8;
+  border-radius: 50%;
+  cursor: pointer;
+  border: 2px solid white;
+  pointer-events: auto;
+}
+
+input[type="range"] {
+  pointer-events: none;
+}
+
+/* Loading styles and animaton  */
+.spinner {
+  --size: 40px;
+  --first-block-clr: #0068c8;
+  --second-block-clr: #e6164d;
+  --clr: #111;
+  width: 100px;
+  height: 100px;
+  position: relative;
+}
+
+.spinner::after,
+.spinner::before {
+  box-sizing: border-box;
+  position: absolute;
+  content: "";
+  width: var(--size);
+  height: var(--size);
+  top: 50%;
+  animation: up 2.4s cubic-bezier(0, 0, 0.24, 1.21) infinite;
+  left: 50%;
+  background: var(--first-block-clr);
+}
+
+.spinner::after {
+  background: var(--second-block-clr);
+  top: calc(50% - var(--size));
+  left: calc(50% - var(--size));
+  animation: down 2.4s cubic-bezier(0, 0, 0.24, 1.21) infinite;
+}
+
+@keyframes down {
+  0%,
+  100% {
+    transform: none;
+  }
+
+  25% {
+    transform: translateX(100%);
+  }
+
+  50% {
+    transform: translateX(100%) translateY(100%);
+  }
+
+  75% {
+    transform: translateY(100%);
+  }
+}
+
+@keyframes up {
+  0%,
+  100% {
+    transform: none;
+  }
+
+  25% {
+    transform: translateX(-100%);
+  }
+
+  50% {
+    transform: translateX(-100%) translateY(-100%);
+  }
+
+  75% {
+    transform: translateY(-100%);
   }
 }
